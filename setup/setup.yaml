@@ -1,0 +1,41 @@
+
+AWSTemplateFormatVersion: "2010-09-09"
+Description : "stand alone homepage running in S3"
+
+Resources:
+
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: "PublicRead"
+      #BucketName: www.soulcake.com.au
+      WebsiteConfiguration:
+        IndexDocument: index.html",
+        ErrorDocument: "error.html"
+      Tags:
+        - 
+          Key: Name
+          Value: Corporate
+        - 
+          Key: CreationDate
+          Value: 24/09/2017
+        - 
+          Key: ReviewDate
+          Value: 24/09/2018
+
+Outputs:
+  BucketArn:
+    Value: !GetAtt [S3Bucket,  Arn]
+    Description: Arn of website s3 bucket
+  
+  WebsiteURL:
+    Value: !GetAtt [S3Bucket,  WebsiteURL]
+    Description: URL for website hosted on S3
+
+  S3BucketSecureURL:
+    Value: !Join ['', ['https://', !GetAtt [S3Bucket, DomainName]]]
+    Description: Domain Name of S3 bucket to hold website content
+
+  BucketName:
+    Value: !Ref 'S3Bucket'
+    Description: Name of the S3 bucket

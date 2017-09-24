@@ -1,0 +1,1 @@
+aws cloudformation deploy --stack-name homepage-static-website --template-file ./setup.yaml --profile personal
